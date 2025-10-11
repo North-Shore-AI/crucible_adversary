@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d68910;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#grad1)" opacity="0.1"/>
+
+  <!-- Crucible container -->
+  <path d="M 60 50 L 140 50 L 130 140 Q 115 160 100 160 Q 85 160 70 140 Z"
+        fill="url(#grad1)" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Warning symbol (adversarial) -->
+  <path d="M 100 70 L 120 110 L 80 110 Z"
+        fill="url(#grad2)" stroke="#d68910" stroke-width="2"/>
+  <circle cx="100" cy="125" r="4" fill="#f39c12"/>
+
+  <!-- Attack vectors (lightning bolts) -->
+  <path d="M 50 80 L 65 95 L 55 95 L 70 110"
+        stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M 150 80 L 135 95 L 145 95 L 130 110"
+        stroke="#e74c3c" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Shield element (robustness) -->
+  <path d="M 100 130 Q 90 135 85 140 Q 85 145 100 150 Q 115 145 115 140 Q 110 135 100 130"
+        fill="none" stroke="#2c3e50" stroke-width="2" opacity="0.7"/>
+</svg>
