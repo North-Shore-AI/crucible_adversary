@@ -1,6 +1,6 @@
-<svg width="200" height="231" viewBox="0 0 200 231" xmlns="http://www.w.org/2000/svg">
+<svg width="200" height="231" viewBox="0 0 200 231" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad_crucible_ensemble" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
     </linearGradient>
@@ -12,7 +12,7 @@
 
   <!-- Hexagon shape -->
   <path d="M 100,5 L 190,62.5 L 190,177.5 L 100,235 L 10,177.5 L 10,62.5 Z"
-        fill="url(#grad_crucible_ensemble)"
+        fill="url(#grad1)"
         stroke="#FFFFFF"
         stroke-width="3"/>
 
@@ -26,7 +26,7 @@
   <!-- Crucible container -->
   <g transform="translate(0, 20)">
     <path d="M 60 50 L 140 50 L 130 140 Q 115 160 100 160 Q 85 160 70 140 Z"
-          fill="url(#grad_crucible_ensemble)" stroke="#c0392b" stroke-width="3"/>
+          fill="url(#grad1)" stroke="#c0392b" stroke-width="3"/>
 
     <!-- Warning symbol (adversarial) -->
     <path d="M 100 70 L 120 110 L 80 110 Z"
