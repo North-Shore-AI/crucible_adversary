@@ -6,6 +6,13 @@
 
 **Adversarial Testing and Robustness Evaluation Framework**
 
+[![Elixir](https://img.shields.io/badge/elixir-1.14+-purple.svg)](https://elixir-lang.org)
+[![OTP](https://img.shields.io/badge/otp-25+-red.svg)](https://www.erlang.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/North-Shore-AI/crucible_adversary/blob/main/LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-hexdocs-blueviolet.svg)](https://hexdocs.pm/crucible_adversary)
+
+---
+
 A comprehensive adversarial testing framework designed for AI/ML systems in Elixir. CrucibleAdversary provides advanced attack generation, robustness evaluation, security vulnerability scanning, and stress testing capabilities for AI models integrated with the Crucible framework.
 
 ## Features
