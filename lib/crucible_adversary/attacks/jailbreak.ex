@@ -36,7 +36,8 @@ defmodule CrucibleAdversary.Attacks.Jailbreak do
     * `:target_behavior` - Desired behavior to elicit (default: bypass restrictions)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -79,7 +80,8 @@ defmodule CrucibleAdversary.Attacks.Jailbreak do
     * `:switch_context` - Context switch instruction (default: disable safety)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -120,7 +122,8 @@ defmodule CrucibleAdversary.Attacks.Jailbreak do
     * `:encoding` - Encoding method (:base64, :rot13, :hex, :leetspeak) (default: :base64)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -161,7 +164,8 @@ defmodule CrucibleAdversary.Attacks.Jailbreak do
     * `:scenario` - Hypothetical scenario framing (default: educational purposes)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 

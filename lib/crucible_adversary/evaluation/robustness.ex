@@ -34,7 +34,8 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
       * `:seed` - Random seed for reproducibility
 
   ## Returns
-    {:ok, %EvaluationResult{}} or {:error, reason}
+    * `{:ok, %EvaluationResult{}}` - Completed evaluation with metrics
+    * `{:error, reason}` - Evaluation failed with the given reason
 
   ## Examples
 

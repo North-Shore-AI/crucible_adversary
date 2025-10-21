@@ -30,7 +30,8 @@ defmodule CrucibleAdversary.Perturbations.Semantic do
     * `:seed` - Random seed for reproducibility (default: nil)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -89,7 +90,8 @@ defmodule CrucibleAdversary.Perturbations.Semantic do
     * `:seed` - Random seed for reproducibility (default: nil)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -143,7 +145,8 @@ defmodule CrucibleAdversary.Perturbations.Semantic do
     * `:seed` - Random seed for reproducibility (default: nil)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -202,7 +205,8 @@ defmodule CrucibleAdversary.Perturbations.Semantic do
     * `:seed` - Random seed for reproducibility (default: nil)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 

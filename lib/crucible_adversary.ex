@@ -80,7 +80,8 @@ defmodule CrucibleAdversary do
       * Other attack-specific options
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -131,7 +132,8 @@ defmodule CrucibleAdversary do
       * Other attack-specific options
 
   ## Returns
-    {:ok, list of AttackResult structs} or {:error, reason}
+    * `{:ok, list(AttackResult.t())}` - Collected results from all attacks
+    * `{:error, reason}` - Failure while executing the batch
 
   ## Examples
 
@@ -173,7 +175,8 @@ defmodule CrucibleAdversary do
     * `opts` - Evaluation options
 
   ## Returns
-    {:ok, %EvaluationResult{}} or {:error, reason}
+    * `{:ok, %EvaluationResult{}}` - Completed evaluation with metrics
+    * `{:error, reason}` - Evaluation failed with the given reason
 
   ## Examples
 

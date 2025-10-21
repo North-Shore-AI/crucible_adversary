@@ -34,7 +34,8 @@ defmodule CrucibleAdversary.Attacks.Injection do
     * `:strategy` - Injection strategy (:append, :prepend, :replace) (default: :append)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -77,7 +78,8 @@ defmodule CrucibleAdversary.Attacks.Injection do
     * `:padding` - Padding content (default: repetitive text)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -125,7 +127,8 @@ defmodule CrucibleAdversary.Attacks.Injection do
     * `:strategy` - Where to place delimiters (:surround, :interleave) (default: :surround)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 
@@ -175,7 +178,8 @@ defmodule CrucibleAdversary.Attacks.Injection do
     * `:variables` - Map of variables to inject (default: common template vars)
 
   ## Returns
-    {:ok, %AttackResult{}} or {:error, reason}
+    * `{:ok, %AttackResult{}}` - Attack executed successfully
+    * `{:error, reason}` - Attack failed with diagnostic information
 
   ## Examples
 

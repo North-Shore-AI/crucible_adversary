@@ -63,10 +63,12 @@ defmodule CrucibleAdversary.MixProject do
       extras: [
         "README.md",
         "CHANGELOG.md",
+        "LICENSE",
         "docs/20251020/FUTURE_VISION.md"
       ],
       groups_for_extras: [
         "Release Notes": ["CHANGELOG.md"],
+        Legal: ["LICENSE"],
         Roadmap: ["docs/20251020/FUTURE_VISION.md"]
       ],
       assets: %{"assets" => "assets"},
