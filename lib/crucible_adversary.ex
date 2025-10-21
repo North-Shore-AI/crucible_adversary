@@ -40,6 +40,18 @@ defmodule CrucibleAdversary do
   - `:synonym_replacement` - Replace with synonyms
   - `:word_shuffle` - Shuffle word order
 
+  Prompt Injection:
+  - `:prompt_injection_basic` - Direct instruction override
+  - `:prompt_injection_overflow` - Context window flooding
+  - `:prompt_injection_delimiter` - Delimiter confusion
+  - `:prompt_injection_template` - Template variable exploitation
+
+  Jailbreak:
+  - `:jailbreak_roleplay` - Persona-based bypass
+  - `:jailbreak_context_switch` - Context manipulation
+  - `:jailbreak_encode` - Obfuscation techniques
+  - `:jailbreak_hypothetical` - Hypothetical scenario framing
+
   ## Available Metrics
 
   - `:accuracy_drop` - Accuracy degradation metrics
@@ -49,6 +61,7 @@ defmodule CrucibleAdversary do
 
   alias CrucibleAdversary.{AttackResult, EvaluationResult, Config}
   alias CrucibleAdversary.Perturbations.{Character, Word}
+  alias CrucibleAdversary.Attacks.{Injection, Jailbreak}
   alias CrucibleAdversary.Evaluation.Robustness
 
   @doc """
@@ -86,6 +99,14 @@ defmodule CrucibleAdversary do
       :word_insertion -> Word.insert(input, opts)
       :synonym_replacement -> Word.synonym_replace(input, opts)
       :word_shuffle -> Word.shuffle(input, opts)
+      :prompt_injection_basic -> Injection.basic(input, opts)
+      :prompt_injection_overflow -> Injection.context_overflow(input, opts)
+      :prompt_injection_delimiter -> Injection.delimiter_attack(input, opts)
+      :prompt_injection_template -> Injection.template_injection(input, opts)
+      :jailbreak_roleplay -> Jailbreak.roleplay(input, opts)
+      :jailbreak_context_switch -> Jailbreak.context_switch(input, opts)
+      :jailbreak_encode -> Jailbreak.encode(input, opts)
+      :jailbreak_hypothetical -> Jailbreak.hypothetical(input, opts)
       _ -> {:error, {:unknown_attack_type, attack_type}}
     end
   end

@@ -15,6 +15,7 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
 
   alias CrucibleAdversary.{AttackResult, EvaluationResult}
   alias CrucibleAdversary.Perturbations.{Character, Word}
+  alias CrucibleAdversary.Attacks.{Injection, Jailbreak}
   alias CrucibleAdversary.Metrics.{Accuracy, ASR}
 
   @default_attacks [:character_swap, :word_deletion]
@@ -229,4 +230,12 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
   defp attack_module(:word_insertion), do: {Word, :insert}
   defp attack_module(:synonym_replacement), do: {Word, :synonym_replace}
   defp attack_module(:word_shuffle), do: {Word, :shuffle}
+  defp attack_module(:prompt_injection_basic), do: {Injection, :basic}
+  defp attack_module(:prompt_injection_overflow), do: {Injection, :context_overflow}
+  defp attack_module(:prompt_injection_delimiter), do: {Injection, :delimiter_attack}
+  defp attack_module(:prompt_injection_template), do: {Injection, :template_injection}
+  defp attack_module(:jailbreak_roleplay), do: {Jailbreak, :roleplay}
+  defp attack_module(:jailbreak_context_switch), do: {Jailbreak, :context_switch}
+  defp attack_module(:jailbreak_encode), do: {Jailbreak, :encode}
+  defp attack_module(:jailbreak_hypothetical), do: {Jailbreak, :hypothetical}
 end
