@@ -143,4 +143,5 @@ This is the Phase 1 foundation release. Future releases will add:
 - CrucibleBench integration
 - Real-time monitoring
 
+[0.2.0]: https://github.com/North-Shore-AI/crucible_adversary/releases/tag/v0.2.0
 [0.1.0]: https://github.com/North-Shore-AI/crucible_adversary/releases/tag/v0.1.0

@@ -33,14 +33,17 @@ defmodule CrucibleAdversary.MixProject do
   end
 
   defp description do
-    "Adversarial testing and robustness evaluation framework for AI models. Includes text perturbations, prompt attacks, jailbreaks, and security vulnerability scanning for the Crucible framework."
+    "Adversarial testing and robustness evaluation framework for AI models. " <>
+      "Provides 21 attack types including character/word/semantic perturbations, " <>
+      "prompt injection, jailbreak techniques, plus defense mechanisms (detection, " <>
+      "filtering, sanitization) and comprehensive metrics."
   end
 
   defp package do
     [
       name: "crucible_adversary",
       description: description(),
-      files: ~w(lib mix.exs README.md CHANGELOG.md LICENSE),
+      files: ~w(lib mix.exs README.md CHANGELOG.md LICENSE docs),
       licenses: ["MIT"],
       links: %{
         "GitHub" => @source_url,
@@ -57,7 +60,15 @@ defmodule CrucibleAdversary.MixProject do
       source_ref: "v#{@version}",
       source_url: @source_url,
       homepage_url: @source_url,
-      extras: ["README.md", "CHANGELOG.md"],
+      extras: [
+        "README.md",
+        "CHANGELOG.md",
+        "docs/20251020/FUTURE_VISION.md"
+      ],
+      groups_for_extras: [
+        "Release Notes": ["CHANGELOG.md"],
+        Roadmap: ["docs/20251020/FUTURE_VISION.md"]
+      ],
       assets: %{"assets" => "assets"},
       logo: "assets/crucible_adversary.svg",
       before_closing_head_tag: &mermaid_config/1
