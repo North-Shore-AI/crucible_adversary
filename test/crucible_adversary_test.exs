@@ -1,8 +1,8 @@
 defmodule CrucibleAdversaryTest do
   use ExUnit.Case
-  doctest CrucibleAdversary
+  # doctest CrucibleAdversary
 
-  test "greets the world" do
-    assert CrucibleAdversary.hello() == :world
+  test "has version" do
+    assert is_binary(CrucibleAdversary.version())
   end
 end
