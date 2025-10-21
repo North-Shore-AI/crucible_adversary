@@ -14,7 +14,7 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
   """
 
   alias CrucibleAdversary.{AttackResult, EvaluationResult}
-  alias CrucibleAdversary.Perturbations.{Character, Word}
+  alias CrucibleAdversary.Perturbations.{Character, Word, Semantic}
   alias CrucibleAdversary.Attacks.{Injection, Jailbreak}
   alias CrucibleAdversary.Metrics.{Accuracy, ASR}
 
@@ -230,6 +230,10 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
   defp attack_module(:word_insertion), do: {Word, :insert}
   defp attack_module(:synonym_replacement), do: {Word, :synonym_replace}
   defp attack_module(:word_shuffle), do: {Word, :shuffle}
+  defp attack_module(:semantic_paraphrase), do: {Semantic, :paraphrase}
+  defp attack_module(:semantic_back_translate), do: {Semantic, :back_translate}
+  defp attack_module(:semantic_sentence_reorder), do: {Semantic, :sentence_reorder}
+  defp attack_module(:semantic_formality_change), do: {Semantic, :formality_change}
   defp attack_module(:prompt_injection_basic), do: {Injection, :basic}
   defp attack_module(:prompt_injection_overflow), do: {Injection, :context_overflow}
   defp attack_module(:prompt_injection_delimiter), do: {Injection, :delimiter_attack}

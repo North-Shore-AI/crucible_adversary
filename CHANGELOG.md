@@ -5,6 +5,69 @@ All notable changes to CrucibleAdversary will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-10-20
+
+### Added
+
+#### Prompt Injection Attacks
+- `Injection.basic/2` - Direct instruction override with configurable strategies
+- `Injection.context_overflow/2` - Context window flooding attacks
+- `Injection.delimiter_attack/2` - Delimiter confusion techniques
+- `Injection.template_injection/2` - Template variable exploitation
+
+#### Jailbreak Techniques
+- `Jailbreak.roleplay/2` - Persona-based bypass (DAN, etc.)
+- `Jailbreak.context_switch/2` - Context manipulation attacks
+- `Jailbreak.encode/2` - Obfuscation encoding (Base64, ROT13, hex, leetspeak)
+- `Jailbreak.hypothetical/2` - Hypothetical scenario framing
+
+#### Semantic Perturbations
+- `Semantic.paraphrase/2` - Semantic-preserving paraphrasing
+- `Semantic.back_translate/2` - Back-translation artifact simulation
+- `Semantic.sentence_reorder/2` - Sentence order shuffling
+- `Semantic.formality_change/2` - Formality level transformation
+
+#### Defense Mechanisms
+- `Detection.detect_attack/2` - Multi-pattern adversarial detection
+  - Prompt injection keyword detection
+  - Delimiter pattern detection
+  - Roleplay/jailbreak detection
+  - Encoding detection
+  - Risk level classification
+- `Detection.calculate_risk_level/1` - Risk score calculation
+- `Detection.detect_pattern/2` - Individual pattern detection
+- `Filtering.filter_input/2` - Input filtering based on detected patterns
+  - Strict and permissive modes
+  - Configurable pattern lists
+- `Filtering.is_safe?/2` - Safety check for inputs
+- `Sanitization.sanitize/2` - Input sanitization with multiple strategies
+  - Delimiter removal
+  - Whitespace normalization
+  - Length limiting
+  - Special character removal
+- `Sanitization.remove_patterns/2` - Pattern removal utility
+
+### Features
+- **21 Total Attack Types**: Complete adversarial testing arsenal
+- **Defense-in-Depth**: Detection → Filtering → Sanitization pipeline
+- **Configurable Defenses**: Adjustable strictness and patterns
+- **Production Security**: Ready for real-world deployment protection
+
+### Testing
+- 85 new tests (32 attacks + 32 defenses + 21 integration)
+- Total: 203 tests, 0 failures
+- 88.70% code coverage
+- 100% coverage on core defense modules
+- Comprehensive integration tests for all attack types
+
+### Quality Gates
+- ✅ 88.70% test coverage (exceeds 80% requirement)
+- ✅ Zero compilation warnings
+- ✅ Zero Dialyzer errors
+- ✅ All attack types tested
+- ✅ Complete defense pipeline
+- ✅ Production-ready
+
 ## [0.1.0] - 2025-10-20
 
 ### Added

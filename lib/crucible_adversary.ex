@@ -40,6 +40,12 @@ defmodule CrucibleAdversary do
   - `:synonym_replacement` - Replace with synonyms
   - `:word_shuffle` - Shuffle word order
 
+  Semantic-level:
+  - `:semantic_paraphrase` - Paraphrase while preserving meaning
+  - `:semantic_back_translate` - Back-translation simulation
+  - `:semantic_sentence_reorder` - Sentence order shuffling
+  - `:semantic_formality_change` - Formality level changes
+
   Prompt Injection:
   - `:prompt_injection_basic` - Direct instruction override
   - `:prompt_injection_overflow` - Context window flooding
@@ -60,7 +66,7 @@ defmodule CrucibleAdversary do
   """
 
   alias CrucibleAdversary.{AttackResult, EvaluationResult, Config}
-  alias CrucibleAdversary.Perturbations.{Character, Word}
+  alias CrucibleAdversary.Perturbations.{Character, Word, Semantic}
   alias CrucibleAdversary.Attacks.{Injection, Jailbreak}
   alias CrucibleAdversary.Evaluation.Robustness
 
@@ -99,6 +105,10 @@ defmodule CrucibleAdversary do
       :word_insertion -> Word.insert(input, opts)
       :synonym_replacement -> Word.synonym_replace(input, opts)
       :word_shuffle -> Word.shuffle(input, opts)
+      :semantic_paraphrase -> Semantic.paraphrase(input, opts)
+      :semantic_back_translate -> Semantic.back_translate(input, opts)
+      :semantic_sentence_reorder -> Semantic.sentence_reorder(input, opts)
+      :semantic_formality_change -> Semantic.formality_change(input, opts)
       :prompt_injection_basic -> Injection.basic(input, opts)
       :prompt_injection_overflow -> Injection.context_overflow(input, opts)
       :prompt_injection_delimiter -> Injection.delimiter_attack(input, opts)
