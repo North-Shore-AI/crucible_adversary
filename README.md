@@ -560,6 +560,29 @@ defmodule MySecureAPI do
 end
 ```
 
+## 🎯 Examples
+
+Comprehensive runnable examples are available in the `examples/` directory:
+
+```bash
+# Quick introduction (recommended first)
+mix run examples/quickstart.exs
+
+# All 21 attack types demonstrated
+mix run examples/basic_attacks.exs
+
+# Complete defense pipeline with detection, filtering, and sanitization
+mix run examples/defense_pipeline.exs
+
+# Model robustness evaluation with metrics
+mix run examples/model_evaluation.exs
+
+# Advanced techniques: composition, chaining, benchmarking
+mix run examples/advanced_attacks.exs
+```
+
+Each example is fully self-contained and demonstrates real-world usage patterns. See [examples/README.md](examples/README.md) for detailed documentation.
+
 ## 🧪 Testing
 
 ```bash
