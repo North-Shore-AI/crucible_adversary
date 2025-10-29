@@ -6,10 +6,11 @@
 
 **Adversarial Testing and Robustness Evaluation Framework**
 
-[![Elixir](https://img.shields.io/badge/elixir-1.14+-purple.svg)](https://elixir-lang.org)
-[![OTP](https://img.shields.io/badge/otp-25+-red.svg)](https://www.erlang.org)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/North-Shore-AI/crucible_adversary/blob/main/LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-hexdocs-blueviolet.svg)](https://hexdocs.pm/crucible_adversary)
+[![Elixir](https://img.shields.io/badge/elixir-1.18.4-purple.svg)](https://elixir-lang.org)
+[![OTP](https://img.shields.io/badge/otp-28-blue.svg)](https://www.erlang.org)
+[![Hex.pm](https://img.shields.io/hexpm/v/crucible_adversary.svg)](https://hex.pm/packages/crucible_adversary)
+[![Documentation](https://img.shields.io/badge/docs-hexdocs-purple.svg)](https://hexdocs.pm/crucible_adversary)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/North-Shore-AI/crucible_adversary/blob/main/LICENSE)
 [![Tests](https://img.shields.io/badge/tests-203%20passing-brightgreen.svg)]()
 [![Coverage](https://img.shields.io/badge/coverage-88.5%25-green.svg)]()
 
