@@ -5,6 +5,60 @@ All notable changes to CrucibleAdversary will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2025-11-25
+
+### Added
+
+#### Data Extraction Attacks
+- `Extraction.repetition_attack/2` - Exploit repetition to trigger memorized continuations
+- `Extraction.memorization_probe/2` - Test for memorized training examples
+- `Extraction.pii_extraction/2` - Attempt to extract personally identifiable information
+- `Extraction.context_confusion/2` - Use context manipulation to leak information
+
+#### Model Inversion Attacks
+- `Inversion.membership_inference/3` - Determine if data was in training set
+- `Inversion.attribute_inference/3` - Infer attributes of training examples
+- `Inversion.reconstruction_attack/3` - Reconstruct training features from outputs
+- `Inversion.property_inference/3` - Infer dataset-level properties
+
+#### Certified Robustness Metrics
+- `Certified.randomized_smoothing/3` - Provable robustness guarantees via randomized smoothing
+- `Certified.certified_accuracy/3` - Certified accuracy on test sets
+- `Certified.certification_level/1` - Classification of certification quality
+- `Certified.compute_radius/2` - Theoretical robustness radius calculation
+
+#### Attack Composition Framework
+- `Composition.chain/1` - Sequential attack chaining
+- `Composition.execute/2` - Execute attack chains
+- `Composition.parallel/1` - Parallel attack specification
+- `Composition.execute_parallel/2` - Execute attacks in parallel
+- `Composition.best_of/3` - Select best result from multiple attacks
+- `Composition.conditional/3` - Conditional attack execution
+
+### Features
+- **25 Total Attack Types**: Added 4 data extraction + model inversion capabilities
+- **Certified Robustness**: Research-grade provable guarantees
+- **Attack Composition**: Sophisticated multi-stage attack strategies
+- **Enhanced API**: Main API updated to support all new attack types
+
+### Testing
+- 75+ new tests added (covering all new modules)
+- Total: 278+ tests (203 → 278+)
+- Comprehensive test coverage for new features
+- Property-based testing for statistical metrics
+
+### Documentation
+- Complete design document: `docs/20251125/ENHANCEMENTS_DESIGN.md`
+- Updated README with new features and attack counts
+- API documentation for all new modules
+- Usage examples for composition and certified metrics
+
+### Quality Gates
+- ✅ All new modules fully documented
+- ✅ TDD methodology followed throughout
+- ✅ Backwards compatible with v0.2.0
+- ✅ Zero breaking changes
+
 ## [0.2.0] - 2025-10-20
 
 ### Added

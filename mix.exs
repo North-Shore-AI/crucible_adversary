@@ -1,7 +1,7 @@
 defmodule CrucibleAdversary.MixProject do
   use Mix.Project
 
-  @version "0.2.0"
+  @version "0.3.0"
   @source_url "https://github.com/North-Shore-AI/crucible_adversary"
 
   def project do
@@ -28,15 +28,16 @@ defmodule CrucibleAdversary.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.31", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp description do
-    "Adversarial testing and robustness evaluation framework for AI models. " <>
-      "Provides 21 attack types including character/word/semantic perturbations, " <>
-      "prompt injection, jailbreak techniques, plus defense mechanisms (detection, " <>
-      "filtering, sanitization) and comprehensive metrics."
+    "Adversarial testing and robustness framework for AI models with 25 attacks " <>
+      "(character/word/semantic perturbations, prompt injection, jailbreak, " <>
+      "extraction, inversion), defenses (detection/filtering/sanitization), " <>
+      "certified robustness metrics, and attack composition."
   end
 
   defp package do
@@ -64,12 +65,16 @@ defmodule CrucibleAdversary.MixProject do
         "README.md",
         "CHANGELOG.md",
         "LICENSE",
-        "docs/20251020/FUTURE_VISION.md"
+        "docs/20251020/FUTURE_VISION.md",
+        "docs/20251125/ENHANCEMENTS_DESIGN.md"
       ],
       groups_for_extras: [
         "Release Notes": ["CHANGELOG.md"],
         Legal: ["LICENSE"],
-        Roadmap: ["docs/20251020/FUTURE_VISION.md"]
+        Roadmap: [
+          "docs/20251020/FUTURE_VISION.md",
+          "docs/20251125/ENHANCEMENTS_DESIGN.md"
+        ]
       ],
       assets: %{"assets" => "assets"},
       logo: "assets/crucible_adversary.svg",

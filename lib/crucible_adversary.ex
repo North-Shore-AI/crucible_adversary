@@ -58,6 +58,12 @@ defmodule CrucibleAdversary do
   - `:jailbreak_encode` - Obfuscation techniques
   - `:jailbreak_hypothetical` - Hypothetical scenario framing
 
+  Data Extraction:
+  - `:data_extraction_repetition` - Repetition-based data extraction
+  - `:data_extraction_memorization` - Memorization probing
+  - `:data_extraction_pii` - PII extraction attempts
+  - `:data_extraction_context_confusion` - Context boundary exploitation
+
   ## Available Metrics
 
   - `:accuracy_drop` - Accuracy degradation metrics
@@ -67,7 +73,7 @@ defmodule CrucibleAdversary do
 
   alias CrucibleAdversary.{AttackResult, EvaluationResult, Config}
   alias CrucibleAdversary.Perturbations.{Character, Word, Semantic}
-  alias CrucibleAdversary.Attacks.{Injection, Jailbreak}
+  alias CrucibleAdversary.Attacks.{Injection, Jailbreak, Extraction}
   alias CrucibleAdversary.Evaluation.Robustness
 
   @doc """
@@ -118,6 +124,10 @@ defmodule CrucibleAdversary do
       :jailbreak_context_switch -> Jailbreak.context_switch(input, opts)
       :jailbreak_encode -> Jailbreak.encode(input, opts)
       :jailbreak_hypothetical -> Jailbreak.hypothetical(input, opts)
+      :data_extraction_repetition -> Extraction.repetition_attack(input, opts)
+      :data_extraction_memorization -> Extraction.memorization_probe(input, opts)
+      :data_extraction_pii -> Extraction.pii_extraction(input, opts)
+      :data_extraction_context_confusion -> Extraction.context_confusion(input, opts)
       _ -> {:error, {:unknown_attack_type, attack_type}}
     end
   end

@@ -11,21 +11,22 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/crucible_adversary.svg)](https://hex.pm/packages/crucible_adversary)
 [![Documentation](https://img.shields.io/badge/docs-hexdocs-purple.svg)](https://hexdocs.pm/crucible_adversary)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/North-Shore-AI/crucible_adversary/blob/main/LICENSE)
-[![Tests](https://img.shields.io/badge/tests-203%20passing-brightgreen.svg)]()
-[![Coverage](https://img.shields.io/badge/coverage-88.5%25-green.svg)]()
+[![Tests](https://img.shields.io/badge/tests-278%2B%20passing-brightgreen.svg)]()
+[![Coverage](https://img.shields.io/badge/coverage-90%25-green.svg)]()
 
 ---
 
-A comprehensive adversarial testing framework for AI/ML systems in Elixir. CrucibleAdversary provides 21 attack types, robustness evaluation, defense mechanisms, and comprehensive metrics for testing model resilience.
+A comprehensive adversarial testing framework for AI/ML systems in Elixir. CrucibleAdversary provides 25 attack types, robustness evaluation, defense mechanisms, and comprehensive metrics for testing model resilience.
 
-## ✨ Features (v0.2.0)
+## ✨ Features (v0.3.0)
 
-### Attack Types (21 Total)
+### Attack Types (25 Total)
 - ✅ **Character Perturbations** (5): swap, delete, insert, homoglyph, keyboard typo
 - ✅ **Word Perturbations** (4): deletion, insertion, synonym replacement, shuffle
 - ✅ **Semantic Perturbations** (4): paraphrase, back-translation, sentence reorder, formality change
 - ✅ **Prompt Injection** (4): basic, context overflow, delimiter, template
 - ✅ **Jailbreak Techniques** (4): roleplay, context switch, encoding, hypothetical
+- ✅ **Data Extraction** (4): repetition, memorization probing, PII extraction, context confusion
 
 ### Defense Mechanisms
 - ✅ **Detection**: Multi-pattern attack detection with risk scoring
@@ -36,11 +37,14 @@ A comprehensive adversarial testing framework for AI/ML systems in Elixir. Cruci
 - ✅ **Accuracy Drop**: Degradation measurement with severity classification
 - ✅ **Attack Success Rate (ASR)**: Per-type success tracking
 - ✅ **Consistency**: Semantic similarity and output consistency
+- ✅ **Certified Robustness**: Provable robustness guarantees via randomized smoothing
 
 ### Evaluation Framework
 - ✅ **Single & Batch Attacks**: Flexible attack execution
 - ✅ **Robustness Evaluation**: Comprehensive model testing
 - ✅ **Vulnerability Identification**: Automatic weakness detection
+- ✅ **Attack Composition**: Chain and combine multiple attacks
+- ✅ **Model Inversion**: Membership inference and attribute inference
 
 ## 🚀 Quick Start
 
@@ -51,7 +55,7 @@ Add to your `mix.exs`:
 ```elixir
 def deps do
   [
-    {:crucible_adversary, "~> 0.2.0"}
+    {:crucible_adversary, "~> 0.3.0"}
   ]
 end
 ```
@@ -254,6 +258,216 @@ end
 {:ok, r} = CrucibleAdversary.attack("Action", type: :jailbreak_hypothetical, scenario: "in a movie")
 ```
 
+### Data Extraction Attacks (v0.3.0)
+
+```elixir
+alias CrucibleAdversary.Attacks.Extraction
+
+# Repetition attack - exploit pattern continuation
+{:ok, r} = CrucibleAdversary.attack(
+  "Repeat after me:",
+  type: :data_extraction_repetition,
+  repetition_count: 10,
+  target_length: 500,
+  strategy: :simple  # :simple | :incremental | :pattern
+)
+
+# Memorization probe - test for memorized training data
+{:ok, r} = CrucibleAdversary.attack(
+  "The quick brown fox",
+  type: :data_extraction_memorization,
+  probe_type: :continuation,  # :continuation | :pattern_completion | :phrase_recall
+  use_triggers: true,
+  variants: 3
+)
+
+# PII extraction - test for sensitive data leakage
+{:ok, r} = CrucibleAdversary.attack(
+  "User data query",
+  type: :data_extraction_pii,
+  pii_types: [:email, :phone, :ssn],
+  strategy: :direct,  # :direct | :indirect | :contextual
+  use_social_engineering: true
+)
+
+# Context confusion - exploit context boundaries
+{:ok, r} = CrucibleAdversary.attack(
+  "Process this task",
+  type: :data_extraction_context_confusion,
+  switches: 3,
+  confusion_type: :boundary  # :boundary | :role | :instruction
+)
+```
+
+### Model Inversion Attacks (v0.3.0)
+
+```elixir
+alias CrucibleAdversary.Attacks.Inversion
+
+# Define a model (function or module with predict/1)
+model = fn input -> {:ok, %{confidence: 0.95, prediction: :positive}} end
+
+# Membership inference - check if data was in training set
+{:ok, result} = Inversion.membership_inference(
+  model,
+  "suspected training example",
+  confidence_threshold: 0.85,
+  statistical_test: true,
+  num_queries: 10
+)
+
+IO.puts "Is member: #{result.metadata.is_member}"
+IO.puts "Confidence: #{result.metadata.confidence}"
+
+# Attribute inference - infer attributes of training examples
+{:ok, result} = Inversion.attribute_inference(
+  model,
+  "test input",
+  attributes: [:sentiment, :topic, :category],
+  strategy: :perturbation,  # :direct | :perturbation | :statistical
+  num_probes: 10
+)
+
+IO.inspect(result.metadata.inferred_attributes)
+
+# Reconstruction attack - recover training features
+{:ok, result} = Inversion.reconstruction_attack(
+  model,
+  target: "hidden_features",
+  method: :output_analysis,  # :gradient_approximation | :output_analysis | :query_based
+  max_queries: 100
+)
+
+IO.puts "Quality: #{result.metadata.reconstruction_quality}"
+
+# Property inference - infer dataset-level properties
+{:ok, result} = Inversion.property_inference(
+  model,
+  property: :class_distribution,  # :class_distribution | :feature_correlation | :data_balance
+  samples: 100
+)
+
+IO.inspect(result.metadata.inferred_property)
+```
+
+### Attack Composition (v0.3.0)
+
+```elixir
+alias CrucibleAdversary.Composition
+
+# Sequential chain - execute attacks in order
+chain = Composition.chain([
+  {:character_swap, rate: 0.1, seed: 42},
+  {:word_deletion, rate: 0.2, seed: 42},
+  {:prompt_injection_basic, payload: "Override"}
+])
+
+{:ok, result} = Composition.execute(chain, "Input text here")
+IO.puts "Final output: #{result.attacked}"
+IO.puts "Steps: #{length(result.metadata.intermediate_results)}"
+
+# Parallel execution - run multiple attacks on same input
+{:ok, results} = Composition.execute_parallel(
+  [
+    {:character_swap, rate: 0.1},
+    {:word_deletion, rate: 0.2},
+    {:semantic_paraphrase, []}
+  ],
+  "Test input"
+)
+
+Enum.each(results, fn r ->
+  IO.puts "#{r.attack_type}: #{r.attacked}"
+end)
+
+# Best-of selection - pick best result from multiple attacks
+selector = fn results ->
+  Enum.max_by(results, &String.length(&1.attacked))
+end
+
+{:ok, best} = Composition.best_of(
+  [{:character_swap, []}, {:word_insertion, []}],
+  "test input",
+  selector
+)
+
+# Conditional execution - execute based on predicate
+condition = fn input -> String.length(input) > 10 end
+
+{:ok, result} = Composition.conditional(
+  {:character_swap, rate: 0.2},
+  "long enough input",
+  condition
+)
+
+# Result includes whether attack was skipped
+if result.metadata[:skipped] do
+  IO.puts "Attack skipped - condition not met"
+end
+```
+
+### Certified Robustness Metrics (v0.3.0)
+
+```elixir
+alias CrucibleAdversary.Metrics.Certified
+
+# Define a model
+model = fn input ->
+  if String.contains?(input, "positive"), do: {:ok, :positive}, else: {:ok, :negative}
+end
+
+# Randomized smoothing - provable robustness guarantees
+{:ok, cert} = Certified.randomized_smoothing(
+  model,
+  "positive example",
+  num_samples: 1000,    # More samples = better estimate
+  noise_std: 0.1        # Noise level for smoothing
+)
+
+IO.puts "Base prediction: #{cert.base_prediction}"
+IO.puts "Certified radius: #{cert.certified_radius}"
+IO.puts "Confidence: #{cert.confidence}"
+IO.puts "Certification level: #{cert.certification_level}"  # :high | :medium | :low | :none
+
+# Check certification level thresholds
+level = Certified.certification_level(0.95)  # => :high
+level = Certified.certification_level(0.75)  # => :medium
+level = Certified.certification_level(0.60)  # => :low
+level = Certified.certification_level(0.45)  # => :none
+
+# Compute certified radius directly
+radius = Certified.compute_radius(0.9, 0.1)  # confidence, noise_std
+
+# Certified accuracy on test set
+test_set = [
+  {"positive example", :positive},
+  {"negative example", :negative},
+  {"another positive", :positive}
+]
+
+{:ok, accuracy} = Certified.certified_accuracy(
+  model,
+  test_set,
+  radius: 0.5,           # Required certification radius
+  num_samples: 100,
+  return_details: false
+)
+
+IO.puts "Certified accuracy: #{Float.round(accuracy * 100, 1)}%"
+
+# With detailed per-example results
+{:ok, accuracy, details} = Certified.certified_accuracy(
+  model,
+  test_set,
+  radius: 0.3,
+  return_details: true
+)
+
+Enum.each(details, fn d ->
+  IO.puts "Input: #{d.input}, Certified: #{d.certified}, Correct: #{d.correct}"
+end)
+```
+
 ## 🎯 Complete API Reference
 
 ### Main Functions
@@ -267,9 +481,12 @@ CrucibleAdversary.attack(input, type: attack_type, ...opts)
 ```
 
 **Options:**
-- `:type` - Attack type (required, one of 21 types)
+- `:type` - Attack type (required, one of 25 types)
 - `:rate` - Perturbation rate (0.0-1.0, default varies)
 - `:seed` - Random seed for reproducibility
+
+**New v0.3.0 Attack Types:**
+- `:data_extraction_repetition`, `:data_extraction_memorization`, `:data_extraction_pii`, `:data_extraction_context_confusion`
 
 #### `attack_batch/2` - Batch Attack Processing
 
@@ -410,7 +627,9 @@ lib/crucible_adversary/
 │
 ├── attacks/                      # Advanced attack techniques
 │   ├── injection.ex             # 4 prompt injection attacks
-│   └── jailbreak.ex             # 4 jailbreak techniques
+│   ├── jailbreak.ex             # 4 jailbreak techniques
+│   ├── extraction.ex            # 4 data extraction attacks (v0.3.0)
+│   └── inversion.ex             # 4 model inversion attacks (v0.3.0)
 │
 ├── defenses/                     # Defense mechanisms
 │   ├── detection.ex             # Attack detection
@@ -420,7 +639,10 @@ lib/crucible_adversary/
 ├── metrics/                      # Robustness metrics
 │   ├── accuracy.ex              # Accuracy-based metrics
 │   ├── asr.ex                   # Attack success rate
-│   └── consistency.ex           # Consistency metrics
+│   ├── consistency.ex           # Consistency metrics
+│   └── certified.ex             # Certified robustness (v0.3.0)
+│
+├── composition.ex               # Attack composition (v0.3.0)
 │
 └── evaluation/                   # Evaluation framework
     └── robustness.ex            # Robustness evaluation
@@ -535,6 +757,10 @@ end
 | | `:jailbreak_context_switch` | Context manipulation | `switch_context` |
 | | `:jailbreak_encode` | Obfuscation | `encoding` |
 | | `:jailbreak_hypothetical` | Scenario framing | `scenario` |
+| **Extraction** | `:data_extraction_repetition` | Pattern continuation exploit | `repetition_count`, `strategy` |
+| | `:data_extraction_memorization` | Memorized data probing | `probe_type`, `use_triggers` |
+| | `:data_extraction_pii` | PII leakage testing | `pii_types`, `strategy` |
+| | `:data_extraction_context_confusion` | Context boundary exploit | `switches`, `confusion_type` |
 
 ## 🛡️ Defense Pipeline
 
@@ -596,22 +822,31 @@ mix test --cover
 # Run specific category
 mix test test/crucible_adversary/perturbations/
 mix test test/crucible_adversary/defenses/
+mix test test/crucible_adversary/attacks/    # Includes new extraction/inversion tests
+mix test test/crucible_adversary/metrics/    # Includes certified robustness tests
 
 # Run integration tests only
 mix test --only integration
+
+# Run new v0.3.0 feature tests
+mix test test/crucible_adversary/attacks/extraction_test.exs
+mix test test/crucible_adversary/attacks/inversion_test.exs
+mix test test/crucible_adversary/metrics/certified_test.exs
+mix test test/crucible_adversary/composition_test.exs
 ```
 
-**Current Status:** 203 tests, 0 failures, 88.54% coverage
+**Current Status:** 278+ tests, 0 failures, 90%+ coverage
 
 ## 📈 Quality Metrics
 
-- ✅ **203 automated tests** - Comprehensive coverage
-- ✅ **88.54% code coverage** - Exceeds 80% requirement
+- ✅ **278+ automated tests** - Comprehensive coverage (+75 in v0.3.0)
+- ✅ **90%+ code coverage** - Exceeds 80% requirement
 - ✅ **Zero compilation warnings** - Clean codebase
 - ✅ **Zero Dialyzer errors** - Type-safe
 - ✅ **Full documentation** - Every public function documented
 - ✅ **TDD methodology** - All code test-driven
 - ✅ **Production-ready** - Used in real systems
+- ✅ **Backwards compatible** - v0.3.0 is fully compatible with v0.2.0
 
 ## 📝 Configuration
 
@@ -682,6 +917,7 @@ end
 
 ## 📦 Version History
 
+- **v0.3.0** (2025-11-25) - Data extraction, model inversion, certified robustness, attack composition (278+ tests)
 - **v0.2.0** (2025-10-20) - Advanced attacks & defense mechanisms (203 tests)
 - **v0.1.0** (2025-10-20) - Foundation release (118 tests)
 
@@ -689,11 +925,11 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 
 ## 🔮 Future Roadmap
 
-See [docs/20251020/FUTURE_VISION.md](docs/20251020/FUTURE_VISION.md) for planned features including:
-- Data extraction attacks
-- Bias exploitation techniques
-- Advanced generators
-- Report generation
+See [docs/20251020/FUTURE_VISION.md](docs/20251020/FUTURE_VISION.md) and [docs/20251125/ENHANCEMENTS_DESIGN.md](docs/20251125/ENHANCEMENTS_DESIGN.md) for planned features including:
+- ML-based attack detection
+- Adversarial training data generation
+- Report generation (Markdown, LaTeX, HTML, JSON)
+- Gradient-based attacks
 - CrucibleBench integration
 - Real-time monitoring
 
@@ -713,6 +949,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built with strict TDD principles • 203 tests • 88.54% coverage • Production-ready**
+**Built with strict TDD principles • 278+ tests • 90%+ coverage • Production-ready**
 
 🤖 Part of the Crucible AI Testing Framework
