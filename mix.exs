@@ -1,7 +1,7 @@
 defmodule CrucibleAdversary.MixProject do
   use Mix.Project
 
-  @version "0.3.0"
+  @version "0.4.0"
   @source_url "https://github.com/North-Shore-AI/crucible_adversary"
 
   def project do
@@ -28,6 +28,7 @@ defmodule CrucibleAdversary.MixProject do
 
   defp deps do
     [
+      {:crucible_ir, "~> 0.2.1"},
       {:ex_doc, "~> 0.31", only: :dev, runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
