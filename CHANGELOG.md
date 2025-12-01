@@ -5,6 +5,42 @@ All notable changes to CrucibleAdversary will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2025-11-26
+
+### Added
+
+#### CrucibleIR Integration
+- `CrucibleAdversary.Stage` - Pipeline stage for adversarial robustness testing
+- Integration with CrucibleIR's pipeline architecture
+- Composable adversarial evaluation as a pipeline stage
+- Context-based configuration and result propagation
+
+#### Dependencies
+- Added `crucible_ir ~> 0.1.1` dependency for pipeline integration
+
+### Features
+- **Pipeline Composability**: Use adversarial testing in CrucibleIR pipelines
+- **Context Preservation**: Stage preserves and augments pipeline context
+- **Flexible Configuration**: Configure attacks, metrics, and options via context or opts
+- **Chainable Stages**: Seamlessly chain with other CrucibleIR pipeline stages
+
+### Testing
+- 20+ new tests for Stage module
+- Total: 298+ tests (278 → 298+)
+- Integration tests for CrucibleIR pipeline compatibility
+- Tests for context preservation and augmentation
+
+### Documentation
+- Complete API documentation for Stage module
+- Usage examples for pipeline integration
+- Stage description functionality
+
+### Quality Gates
+- ✅ All Stage functionality fully tested
+- ✅ Backwards compatible with v0.3.0
+- ✅ Zero breaking changes
+- ✅ CrucibleIR integration tested
+
 ## [0.3.0] - 2025-11-25
 
 ### Added

@@ -11,14 +11,14 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/crucible_adversary.svg)](https://hex.pm/packages/crucible_adversary)
 [![Documentation](https://img.shields.io/badge/docs-hexdocs-purple.svg)](https://hexdocs.pm/crucible_adversary)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/North-Shore-AI/crucible_adversary/blob/main/LICENSE)
-[![Tests](https://img.shields.io/badge/tests-278%2B%20passing-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-298%2B%20passing-brightgreen.svg)]()
 [![Coverage](https://img.shields.io/badge/coverage-90%25-green.svg)]()
 
 ---
 
 A comprehensive adversarial testing framework for AI/ML systems in Elixir. CrucibleAdversary provides 25 attack types, robustness evaluation, defense mechanisms, and comprehensive metrics for testing model resilience.
 
-## ✨ Features (v0.3.0)
+## ✨ Features (v0.4.0)
 
 ### Attack Types (25 Total)
 - ✅ **Character Perturbations** (5): swap, delete, insert, homoglyph, keyboard typo
@@ -55,7 +55,7 @@ Add to your `mix.exs`:
 ```elixir
 def deps do
   [
-    {:crucible_adversary, "~> 0.3.0"}
+    {:crucible_adversary, "~> 0.4.0"}
   ]
 end
 ```
@@ -143,6 +143,45 @@ IO.inspect(evaluation.metrics.asr)
 #     semantic_paraphrase: 0.33
 #   }
 # }
+```
+
+### CrucibleIR Pipeline Integration (v0.4.0)
+
+```elixir
+# Use as a composable pipeline stage
+alias CrucibleAdversary.Stage
+
+# Define pipeline context
+context = %{
+  experiment: %{name: "robustness_evaluation"},
+  model: SentimentClassifier,
+  test_set: [
+    {"positive example", :positive},
+    {"negative example", :negative}
+  ],
+  config: %{
+    attacks: [:character_swap, :prompt_injection_basic],
+    metrics: [:accuracy_drop, :asr],
+    seed: 42
+  }
+}
+
+# Run adversarial stage
+{:ok, updated_context} = Stage.run(context)
+
+# Access results
+IO.inspect(updated_context.adversarial_metrics.accuracy_drop)
+IO.inspect(updated_context.adversarial_vulnerabilities)
+
+# Stage description
+IO.puts Stage.describe(%{attacks: [:character_swap], metrics: [:asr]})
+# => "Adversarial robustness testing with attacks: [:character_swap], metrics: [:asr]"
+
+# Chain with other CrucibleIR pipeline stages
+pipeline_context
+|> DataPreprocessingStage.run()
+|> Stage.run()  # Adversarial evaluation
+|> ReportingStage.run()
 ```
 
 ### Defense Mechanisms
@@ -835,18 +874,18 @@ mix test test/crucible_adversary/metrics/certified_test.exs
 mix test test/crucible_adversary/composition_test.exs
 ```
 
-**Current Status:** 278+ tests, 0 failures, 90%+ coverage
+**Current Status:** 298+ tests, 0 failures, 90%+ coverage
 
 ## 📈 Quality Metrics
 
-- ✅ **278+ automated tests** - Comprehensive coverage (+75 in v0.3.0)
+- ✅ **298+ automated tests** - Comprehensive coverage (+20 in v0.4.0)
 - ✅ **90%+ code coverage** - Exceeds 80% requirement
 - ✅ **Zero compilation warnings** - Clean codebase
 - ✅ **Zero Dialyzer errors** - Type-safe
 - ✅ **Full documentation** - Every public function documented
 - ✅ **TDD methodology** - All code test-driven
 - ✅ **Production-ready** - Used in real systems
-- ✅ **Backwards compatible** - v0.3.0 is fully compatible with v0.2.0
+- ✅ **Backwards compatible** - v0.4.0 is fully compatible with v0.3.0
 
 ## 📝 Configuration
 
@@ -917,6 +956,7 @@ end
 
 ## 📦 Version History
 
+- **v0.4.0** (2025-11-26) - CrucibleIR pipeline integration, Stage implementation (298+ tests)
 - **v0.3.0** (2025-11-25) - Data extraction, model inversion, certified robustness, attack composition (278+ tests)
 - **v0.2.0** (2025-10-20) - Advanced attacks & defense mechanisms (203 tests)
 - **v0.1.0** (2025-10-20) - Foundation release (118 tests)

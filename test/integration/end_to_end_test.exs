@@ -100,7 +100,7 @@ defmodule CrucibleAdversary.Integration.EndToEndTest do
 
       # Step 7: Verify version
       version = CrucibleAdversary.version()
-      assert version == "0.3.0"
+      assert version == "0.4.0"
     end
 
     test "robustness evaluation with different attack combinations" do
