@@ -2,8 +2,8 @@ defmodule CrucibleAdversary.StageTest do
   use ExUnit.Case, async: true
   doctest CrucibleAdversary.Stage
 
-  alias CrucibleAdversary.Stage
   alias CrucibleAdversary.EvaluationResult
+  alias CrucibleAdversary.Stage
 
   # Simple test model
   defmodule TestModel do
@@ -61,7 +61,7 @@ defmodule CrucibleAdversary.StageTest do
 
       eval = result.adversarial_evaluation
       # Default attacks: [:character_swap, :word_deletion]
-      assert length(eval.attack_types) >= 1
+      assert eval.attack_types != []
       # Default metrics: [:accuracy_drop, :asr]
       assert Map.has_key?(result.adversarial_metrics, :accuracy_drop) or
                Map.has_key?(result.adversarial_metrics, :asr)

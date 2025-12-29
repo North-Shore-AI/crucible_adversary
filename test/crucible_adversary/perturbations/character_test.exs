@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Perturbations.CharacterTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Perturbations.Character
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Perturbations.Character
 
   describe "swap/2" do
     test "swaps adjacent characters at specified rate" do

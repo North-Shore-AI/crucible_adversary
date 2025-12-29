@@ -38,8 +38,8 @@ defmodule CrucibleAdversary.Stage do
   - `:adversarial_vulnerabilities` - List of identified vulnerabilities
   """
 
-  alias CrucibleAdversary.{EvaluationResult}
   alias CrucibleAdversary.Evaluation.Robustness
+  alias CrucibleAdversary.EvaluationResult
 
   @default_attacks [:character_swap, :word_deletion]
   @default_metrics [:accuracy_drop, :asr]

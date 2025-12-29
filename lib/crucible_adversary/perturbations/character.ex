@@ -288,14 +288,13 @@ defmodule CrucibleAdversary.Perturbations.Character do
 
     text
     |> String.graphemes()
-    |> Enum.map(fn char ->
+    |> Enum.map_join(fn char ->
       if :rand.uniform() < rate and Map.has_key?(homoglyph_mappings, char) do
         homoglyph_mappings[char] |> Enum.random()
       else
         char
       end
     end)
-    |> Enum.join()
   end
 
   defp get_homoglyph_map(:cyrillic) do
@@ -397,7 +396,7 @@ defmodule CrucibleAdversary.Perturbations.Character do
 
     text
     |> String.graphemes()
-    |> Enum.map(fn char ->
+    |> Enum.map_join(fn char ->
       if :rand.uniform() < rate and Map.has_key?(adjacency, char) do
         typo_type = Enum.random(typo_types)
         apply_typo(char, typo_type, adjacency)
@@ -405,7 +404,6 @@ defmodule CrucibleAdversary.Perturbations.Character do
         char
       end
     end)
-    |> Enum.join()
   end
 
   defp apply_typo(char, :substitution, adjacency) do

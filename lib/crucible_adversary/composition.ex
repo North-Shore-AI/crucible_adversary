@@ -253,7 +253,7 @@ defmodule CrucibleAdversary.Composition do
 
   # Private helper functions
 
-  defp default_selector(results) when is_list(results) and length(results) > 0 do
+  defp default_selector(results) when is_list(results) and results != [] do
     # Default: select result with longest attacked output
     Enum.max_by(results, fn r -> String.length(r.attacked) end)
   end

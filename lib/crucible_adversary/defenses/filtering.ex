@@ -86,11 +86,11 @@ defmodule CrucibleAdversary.Defenses.Filtering do
   ## Examples
 
       iex> alias CrucibleAdversary.Defenses.Filtering
-      iex> Filtering.is_safe?("Hello")
+      iex> Filtering.safe?("Hello")
       true
   """
-  @spec is_safe?(String.t(), keyword()) :: boolean()
-  def is_safe?(text, opts \\ []) do
+  @spec safe?(String.t(), keyword()) :: boolean()
+  def safe?(text, opts \\ []) do
     patterns = Keyword.get(opts, :patterns, @default_patterns)
 
     not Enum.any?(patterns, fn pattern ->

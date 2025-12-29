@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.CompositionTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Composition
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Composition
 
   describe "chain/2" do
     test "creates attack chain with multiple attacks" do

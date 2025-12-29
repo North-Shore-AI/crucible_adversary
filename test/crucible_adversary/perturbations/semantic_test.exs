@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Perturbations.SemanticTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Perturbations.Semantic
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Perturbations.Semantic
 
   describe "paraphrase/2" do
     test "paraphrases text while preserving meaning" do

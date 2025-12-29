@@ -13,10 +13,15 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
       true
   """
 
-  alias CrucibleAdversary.{AttackResult, EvaluationResult}
-  alias CrucibleAdversary.Perturbations.{Character, Word, Semantic}
-  alias CrucibleAdversary.Attacks.{Injection, Jailbreak}
-  alias CrucibleAdversary.Metrics.{Accuracy, ASR}
+  alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Attacks.Injection
+  alias CrucibleAdversary.Attacks.Jailbreak
+  alias CrucibleAdversary.EvaluationResult
+  alias CrucibleAdversary.Metrics.Accuracy
+  alias CrucibleAdversary.Metrics.ASR
+  alias CrucibleAdversary.Perturbations.Character
+  alias CrucibleAdversary.Perturbations.Semantic
+  alias CrucibleAdversary.Perturbations.Word
 
   @default_attacks [:character_swap, :word_deletion]
   @default_metrics [:accuracy_drop, :asr]
@@ -143,7 +148,7 @@ defmodule CrucibleAdversary.Evaluation.Robustness do
   end
 
   defp run_model(model, input) when is_atom(model) do
-    apply(model, :predict, [input])
+    model.predict(input)
   end
 
   defp model_name(model) when is_function(model), do: :function

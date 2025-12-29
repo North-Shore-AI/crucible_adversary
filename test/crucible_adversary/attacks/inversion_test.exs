@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Attacks.InversionTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Attacks.Inversion
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Attacks.Inversion
 
   doctest Inversion
 

@@ -71,10 +71,16 @@ defmodule CrucibleAdversary do
   - `:consistency` - Output consistency
   """
 
-  alias CrucibleAdversary.{AttackResult, EvaluationResult, Config}
-  alias CrucibleAdversary.Perturbations.{Character, Word, Semantic}
-  alias CrucibleAdversary.Attacks.{Injection, Jailbreak, Extraction}
+  alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Attacks.Extraction
+  alias CrucibleAdversary.Attacks.Injection
+  alias CrucibleAdversary.Attacks.Jailbreak
+  alias CrucibleAdversary.Config
   alias CrucibleAdversary.Evaluation.Robustness
+  alias CrucibleAdversary.EvaluationResult
+  alias CrucibleAdversary.Perturbations.Character
+  alias CrucibleAdversary.Perturbations.Semantic
+  alias CrucibleAdversary.Perturbations.Word
 
   @doc """
   Performs a single adversarial attack on input text.
@@ -99,36 +105,40 @@ defmodule CrucibleAdversary do
       {:error, {:unknown_attack_type, :invalid}}
   """
   @spec attack(String.t(), keyword()) :: {:ok, AttackResult.t()} | {:error, term()}
+  @attack_dispatch %{
+    character_swap: {Character, :swap},
+    character_delete: {Character, :delete},
+    character_insert: {Character, :insert},
+    homoglyph: {Character, :homoglyph},
+    keyboard_typo: {Character, :keyboard_typo},
+    word_deletion: {Word, :delete},
+    word_insertion: {Word, :insert},
+    synonym_replacement: {Word, :synonym_replace},
+    word_shuffle: {Word, :shuffle},
+    semantic_paraphrase: {Semantic, :paraphrase},
+    semantic_back_translate: {Semantic, :back_translate},
+    semantic_sentence_reorder: {Semantic, :sentence_reorder},
+    semantic_formality_change: {Semantic, :formality_change},
+    prompt_injection_basic: {Injection, :basic},
+    prompt_injection_overflow: {Injection, :context_overflow},
+    prompt_injection_delimiter: {Injection, :delimiter_attack},
+    prompt_injection_template: {Injection, :template_injection},
+    jailbreak_roleplay: {Jailbreak, :roleplay},
+    jailbreak_context_switch: {Jailbreak, :context_switch},
+    jailbreak_encode: {Jailbreak, :encode},
+    jailbreak_hypothetical: {Jailbreak, :hypothetical},
+    data_extraction_repetition: {Extraction, :repetition_attack},
+    data_extraction_memorization: {Extraction, :memorization_probe},
+    data_extraction_pii: {Extraction, :pii_extraction},
+    data_extraction_context_confusion: {Extraction, :context_confusion}
+  }
+
   def attack(input, opts) do
     attack_type = Keyword.fetch!(opts, :type)
 
-    case attack_type do
-      :character_swap -> Character.swap(input, opts)
-      :character_delete -> Character.delete(input, opts)
-      :character_insert -> Character.insert(input, opts)
-      :homoglyph -> Character.homoglyph(input, opts)
-      :keyboard_typo -> Character.keyboard_typo(input, opts)
-      :word_deletion -> Word.delete(input, opts)
-      :word_insertion -> Word.insert(input, opts)
-      :synonym_replacement -> Word.synonym_replace(input, opts)
-      :word_shuffle -> Word.shuffle(input, opts)
-      :semantic_paraphrase -> Semantic.paraphrase(input, opts)
-      :semantic_back_translate -> Semantic.back_translate(input, opts)
-      :semantic_sentence_reorder -> Semantic.sentence_reorder(input, opts)
-      :semantic_formality_change -> Semantic.formality_change(input, opts)
-      :prompt_injection_basic -> Injection.basic(input, opts)
-      :prompt_injection_overflow -> Injection.context_overflow(input, opts)
-      :prompt_injection_delimiter -> Injection.delimiter_attack(input, opts)
-      :prompt_injection_template -> Injection.template_injection(input, opts)
-      :jailbreak_roleplay -> Jailbreak.roleplay(input, opts)
-      :jailbreak_context_switch -> Jailbreak.context_switch(input, opts)
-      :jailbreak_encode -> Jailbreak.encode(input, opts)
-      :jailbreak_hypothetical -> Jailbreak.hypothetical(input, opts)
-      :data_extraction_repetition -> Extraction.repetition_attack(input, opts)
-      :data_extraction_memorization -> Extraction.memorization_probe(input, opts)
-      :data_extraction_pii -> Extraction.pii_extraction(input, opts)
-      :data_extraction_context_confusion -> Extraction.context_confusion(input, opts)
-      _ -> {:error, {:unknown_attack_type, attack_type}}
+    case Map.get(@attack_dispatch, attack_type) do
+      {module, function} -> apply(module, function, [input, opts])
+      nil -> {:error, {:unknown_attack_type, attack_type}}
     end
   end
 

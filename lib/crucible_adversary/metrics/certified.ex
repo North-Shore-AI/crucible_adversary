@@ -257,22 +257,23 @@ defmodule CrucibleAdversary.Metrics.Certified do
   defp perturb_text(text) do
     chars = String.graphemes(text)
 
-    if length(chars) > 0 do
-      # Randomly perturb a character
+    if chars != [] do
       idx = :rand.uniform(length(chars)) - 1
-
-      List.update_at(chars, idx, fn char ->
-        # Small perturbation: change case or add space
-        case :rand.uniform(3) do
-          1 -> String.upcase(char)
-          2 -> String.downcase(char)
-          3 -> char <> " "
-        end
-      end)
-      |> Enum.join()
+      perturb_char_at_index(chars, idx)
     else
       text
     end
+  end
+
+  defp perturb_char_at_index(chars, idx) do
+    List.update_at(chars, idx, fn char ->
+      case :rand.uniform(3) do
+        1 -> String.upcase(char)
+        2 -> String.downcase(char)
+        3 -> char <> " "
+      end
+    end)
+    |> Enum.join()
   end
 
   defp query_model(model, input) when is_function(model) do

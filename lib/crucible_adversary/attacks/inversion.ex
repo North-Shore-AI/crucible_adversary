@@ -329,32 +329,29 @@ defmodule CrucibleAdversary.Attacks.Inversion do
     end
   end
 
-  defp infer_attribute_value(attribute, confidence, prediction) do
-    # Simplified inference logic
-    case attribute do
-      :sentiment ->
-        cond do
-          confidence > 0.8 -> :positive
-          confidence < 0.3 -> :negative
-          true -> :neutral
-        end
-
-      :topic ->
-        Map.get(prediction, :prediction, :unknown)
-
-      :category ->
-        Map.get(prediction, :prediction, :general)
-
-      :language ->
-        :english
-
-      :type ->
-        Map.get(prediction, :prediction, :text)
-
-      _ ->
-        :unknown
+  defp infer_attribute_value(:sentiment, confidence, _prediction) do
+    cond do
+      confidence > 0.8 -> :positive
+      confidence < 0.3 -> :negative
+      true -> :neutral
     end
   end
+
+  defp infer_attribute_value(:topic, _confidence, prediction) do
+    Map.get(prediction, :prediction, :unknown)
+  end
+
+  defp infer_attribute_value(:category, _confidence, prediction) do
+    Map.get(prediction, :prediction, :general)
+  end
+
+  defp infer_attribute_value(:language, _confidence, _prediction), do: :english
+
+  defp infer_attribute_value(:type, _confidence, prediction) do
+    Map.get(prediction, :prediction, :text)
+  end
+
+  defp infer_attribute_value(_attribute, _confidence, _prediction), do: :unknown
 
   defp perform_gradient_reconstruction(_model, _target, max_queries) do
     # Simplified gradient-based reconstruction

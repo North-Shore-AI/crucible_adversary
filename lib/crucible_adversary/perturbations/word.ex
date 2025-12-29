@@ -64,7 +64,7 @@ defmodule CrucibleAdversary.Perturbations.Word do
     |> tokenize()
     |> Enum.reject(fn word ->
       should_delete = :rand.uniform() < rate
-      is_stopword = is_stopword?(word)
+      is_stopword = stopword?(word)
 
       if preserve_stopwords and is_stopword do
         false
@@ -197,7 +197,7 @@ defmodule CrucibleAdversary.Perturbations.Word do
 
     text
     |> tokenize()
-    |> Enum.map(fn word ->
+    |> Enum.map_join(" ", fn word ->
       lower_word = String.downcase(word)
 
       if :rand.uniform() < rate and Map.has_key?(synonym_map, lower_word) do
@@ -206,7 +206,6 @@ defmodule CrucibleAdversary.Perturbations.Word do
         word
       end
     end)
-    |> Enum.join(" ")
   end
 
   defp get_synonym_map do
@@ -319,7 +318,7 @@ defmodule CrucibleAdversary.Perturbations.Word do
 
   @stopwords ~w(the a an and or but in on at to for of with)
 
-  defp is_stopword?(word) do
+  defp stopword?(word) do
     String.downcase(word) in @stopwords
   end
 end

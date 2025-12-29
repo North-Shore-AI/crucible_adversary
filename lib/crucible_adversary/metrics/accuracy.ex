@@ -84,7 +84,7 @@ defmodule CrucibleAdversary.Metrics.Accuracy do
       0.6666666666666666
   """
   @spec robust_accuracy(list(), list()) :: float()
-  def robust_accuracy(predictions, _ground_truth) when length(predictions) == 0, do: 0.0
+  def robust_accuracy(predictions, _ground_truth) when predictions == [], do: 0.0
 
   def robust_accuracy(predictions, ground_truth) do
     correct =

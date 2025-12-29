@@ -35,11 +35,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Usage examples for pipeline integration
 - Stage description functionality
 
+### Code Quality
+- Added Credo for static analysis (`mix credo --strict` passes)
+- Refactored aliases to alphabetical one-per-line format
+- Replaced `Enum.map |> Enum.join` with `Enum.map_join`
+- Renamed `is_safe?/2` to `safe?/2` per Elixir naming conventions
+- Converted large case statements to pattern-matched function clauses
+- Replaced `length(list) == 0` guards with `list == []`
+
 ### Quality Gates
 - ✅ All Stage functionality fully tested
 - ✅ Backwards compatible with v0.3.0
 - ✅ Zero breaking changes
 - ✅ CrucibleIR integration tested
+- ✅ Credo strict mode passes
 
 ## [0.3.0] - 2025-11-25
 

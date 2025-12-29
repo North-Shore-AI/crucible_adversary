@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Attacks.ExtractionTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Attacks.Extraction
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Attacks.Extraction
 
   doctest Extraction
 

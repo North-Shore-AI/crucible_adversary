@@ -66,9 +66,8 @@ defmodule CrucibleAdversary.Config do
   @spec validate(t()) :: :ok | {:error, atom()}
   def validate(%__MODULE__{} = config) do
     with :ok <- validate_attack_rate(config.default_attack_rate),
-         :ok <- validate_max_perturbation_rate(config.max_perturbation_rate),
-         :ok <- validate_logging_level(config.logging_level) do
-      :ok
+         :ok <- validate_max_perturbation_rate(config.max_perturbation_rate) do
+      validate_logging_level(config.logging_level)
     end
   end
 

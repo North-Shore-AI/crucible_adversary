@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Attacks.InjectionTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Attacks.Injection
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Attacks.Injection
 
   describe "basic/2" do
     test "injects payload into prompt" do

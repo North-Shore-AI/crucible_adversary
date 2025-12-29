@@ -1,7 +1,9 @@
 defmodule CrucibleAdversary.CoreTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.{AttackResult, EvaluationResult, Config}
+  alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Config
+  alias CrucibleAdversary.EvaluationResult
 
   describe "AttackResult" do
     test "creates struct with default values" do

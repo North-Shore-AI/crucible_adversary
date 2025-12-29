@@ -55,7 +55,7 @@ defmodule CrucibleAdversaryAPITest do
       {:ok, results} = CrucibleAdversary.attack_batch(["test"], seed: 42)
 
       assert is_list(results)
-      assert length(results) > 0
+      assert results != []
     end
 
     test "handles empty input list" do
@@ -85,7 +85,7 @@ defmodule CrucibleAdversaryAPITest do
 
       assert %EvaluationResult{} = result
       assert result.test_set_size == 2
-      assert length(result.attack_types) > 0
+      assert result.attack_types != []
       assert map_size(result.metrics) > 0
     end
 

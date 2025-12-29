@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Attacks.JailbreakTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Attacks.Jailbreak
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Attacks.Jailbreak
 
   describe "roleplay/2" do
     test "creates roleplay jailbreak" do

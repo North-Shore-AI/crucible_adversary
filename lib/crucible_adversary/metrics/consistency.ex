@@ -112,36 +112,35 @@ defmodule CrucibleAdversary.Metrics.Consistency do
   defp levenshtein_distance(text1, text2) do
     s1 = String.graphemes(text1)
     s2 = String.graphemes(text2)
-    _len1 = length(s1)
     len2 = length(s2)
 
-    # Initialize the matrix
     initial_row = Enum.to_list(0..len2)
 
-    # Calculate distances row by row
     {final_row, _} =
-      Enum.reduce(Enum.with_index(s1, 1), {initial_row, 1}, fn {char1, i}, {prev_row, _row_idx} ->
-        new_row =
-          Enum.reduce(Enum.with_index(s2, 1), [i], fn {char2, j}, acc ->
-            cost_above = Enum.at(prev_row, j)
-            cost_left = hd(acc)
-            cost_diagonal = Enum.at(prev_row, j - 1)
-
-            cost =
-              if char1 == char2 do
-                cost_diagonal
-              else
-                1 + min(cost_left, min(cost_above, cost_diagonal))
-              end
-
-            [cost | acc]
-          end)
-          |> Enum.reverse()
-
+      Enum.reduce(Enum.with_index(s1, 1), {initial_row, 1}, fn {char1, i}, {prev_row, _} ->
+        new_row = calculate_row_distance(s2, prev_row, char1, i)
         {new_row, i + 1}
       end)
 
     List.last(final_row)
+  end
+
+  defp calculate_row_distance(s2, prev_row, char1, i) do
+    Enum.reduce(Enum.with_index(s2, 1), [i], fn {char2, j}, acc ->
+      cost_above = Enum.at(prev_row, j)
+      cost_left = hd(acc)
+      cost_diagonal = Enum.at(prev_row, j - 1)
+
+      cost =
+        if char1 == char2 do
+          cost_diagonal
+        else
+          1 + min(cost_left, min(cost_above, cost_diagonal))
+        end
+
+      [cost | acc]
+    end)
+    |> Enum.reverse()
   end
 
   defp calculate_stats([]) do

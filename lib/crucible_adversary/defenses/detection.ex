@@ -178,7 +178,7 @@ defmodule CrucibleAdversary.Defenses.Detection do
   end
 
   defp calculate_alphanumeric_ratio(text) do
-    if String.length(text) == 0 do
+    if text == "" do
       0.0
     else
       alphanumeric_count =
@@ -192,10 +192,10 @@ defmodule CrucibleAdversary.Defenses.Detection do
 
   defp calculate_confidence(detected_patterns, text) do
     base_confidence =
-      case length(detected_patterns) do
-        0 -> 0.0
-        1 -> 0.6
-        2 -> 0.8
+      case detected_patterns do
+        [] -> 0.0
+        [_] -> 0.6
+        [_, _] -> 0.8
         _ -> 0.95
       end
 

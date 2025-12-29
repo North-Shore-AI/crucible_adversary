@@ -48,7 +48,7 @@ defmodule CrucibleAdversary.Evaluation.RobustnessTest do
 
       assert %EvaluationResult{} = result
       # Default attacks: [:character_swap, :word_deletion]
-      assert length(result.attack_types) > 0
+      assert result.attack_types != []
       # Default metrics: [:accuracy_drop, :asr]
       assert map_size(result.metrics) > 0
     end
@@ -197,7 +197,7 @@ defmodule CrucibleAdversary.Evaluation.RobustnessTest do
         )
 
       assert is_list(results)
-      assert length(results) > 0
+      assert results != []
     end
   end
 end

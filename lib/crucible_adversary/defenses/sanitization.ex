@@ -22,7 +22,7 @@ defmodule CrucibleAdversary.Defenses.Sanitization do
   """
 
   @default_strategies [:remove_delimiters, :normalize_whitespace, :trim]
-  @default_max_length 10000
+  @default_max_length 10_000
   @delimiters ["###", "---", "```", "===", "***", "~~~"]
 
   @doc """

@@ -1,8 +1,8 @@
 defmodule CrucibleAdversary.Perturbations.WordTest do
   use ExUnit.Case, async: true
 
-  alias CrucibleAdversary.Perturbations.Word
   alias CrucibleAdversary.AttackResult
+  alias CrucibleAdversary.Perturbations.Word
 
   describe "delete/2" do
     test "deletes words at specified rate" do

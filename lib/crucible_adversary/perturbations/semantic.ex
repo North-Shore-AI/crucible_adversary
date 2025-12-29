@@ -270,33 +270,28 @@ defmodule CrucibleAdversary.Perturbations.Semantic do
     end
   end
 
-  defp simulate_translation_artifacts(text, intermediate) do
-    # Simulate common translation artifacts based on language
-    case intermediate do
-      :spanish ->
-        # Spanish tends to drop articles sometimes and add "the" before nouns differently
-        text
-        |> String.replace(~r/\bthe\s+/i, fn _match ->
-          if :rand.uniform() > 0.5, do: "", else: "the "
-        end)
-        |> String.replace(~r/\ba\s+/i, fn _match ->
-          if :rand.uniform() > 0.6, do: "the ", else: "a "
-        end)
-
-      :french ->
-        # French might reorder adjectives and use different articles
-        text
-        |> String.replace("the", "a")
-
-      :german ->
-        # German might have different word order
-        text
-        |> String.replace("on the", "on")
-
-      _ ->
-        text
-    end
+  defp simulate_translation_artifacts(text, :spanish) do
+    # Spanish tends to drop articles sometimes and add "the" before nouns differently
+    text
+    |> String.replace(~r/\bthe\s+/i, fn _match ->
+      if :rand.uniform() > 0.5, do: "", else: "the "
+    end)
+    |> String.replace(~r/\ba\s+/i, fn _match ->
+      if :rand.uniform() > 0.6, do: "the ", else: "a "
+    end)
   end
+
+  defp simulate_translation_artifacts(text, :french) do
+    # French might reorder adjectives and use different articles
+    String.replace(text, "the", "a")
+  end
+
+  defp simulate_translation_artifacts(text, :german) do
+    # German might have different word order
+    String.replace(text, "on the", "on")
+  end
+
+  defp simulate_translation_artifacts(text, _intermediate), do: text
 
   defp maybe_reorder_adjectives(text, _seed) do
     # Simple simulation: no actual reordering for now
